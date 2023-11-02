@@ -1,0 +1,2 @@
+#!/bin/bash
+CUDA_VISIBLE_DEVICES=$(python3 -c 'import gpustat; print(next((i for i,g in enumerate(gpustat.new_query()) if len(g["processes"])==0)))') ${@}

@@ -1,0 +1,4 @@
+DATASETS_ROOT_DIR='~/storage/datasets'
+WANDB_DIR='~/storage/wandb'
+WANDB_API_KEY='your_key_here'
+RTPT_INITIALS='your_initials_eg: EX'
