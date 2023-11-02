@@ -9,11 +9,10 @@ services:
                 env_file: .env
                 environment:
                         - CUDA_VISIBLE_DEVICES
-                        - JAX_PLATFORMS
                         - DATASETS_ROOT_DIR=/datasets
                         - WANDB_DIR=/wandb
                 volumes:
-                        - .:/senn
+                        - .:/base
                         - ./bashrc_docker:/root/.bashrc
                         - $DATASETS_ROOT_DIR:/datasets
                         - $WANDB_DIR:/wandb

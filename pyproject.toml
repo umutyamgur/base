@@ -54,8 +54,8 @@ type = "find_links"
 
 [tool.pdm.scripts]
 pre_example = "docker compose up --no-recreate -d"
-example.cmd = "docker compose exec -e CUDA_VISIBLE_DEVICES -e JAX_PLATFORMS -w /senn/examples main python"
-test.cmd = "docker compose exec -e CUDA_VISIBLE_DEVICES='' -e JAX_PLATFORMS=cpu -w /senn main python -m pytest"
+example.cmd = "docker compose exec -e CUDA_VISIBLE_DEVICES -e JAX_PLATFORMS -w /base/examples main python"
+test.cmd = "docker compose exec -e CUDA_VISIBLE_DEVICES='' -e JAX_PLATFORMS=cpu -w /base main python -m pytest"
 exec.cmd = "docker compose exec -e CUDA_VISIBLE_DEVICES -e JAX_PLATFORMS main python"
 black.cmd = "docker compose exec -w /senn main python -m black ."
 
