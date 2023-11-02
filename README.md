@@ -3,7 +3,7 @@ base setup for gpu based machine learning experiments with docker for remote dgx
 
 # Setup Instructions
 Useful scripts needed below are in "scripts" folder.
-1. Fork this repository and pull to the dgx machine.
+1. Pull this repository to the dgx machine. Copy its contents into your own new repository.
 2. Install pip from get-pip.py, ensure pip is on your path
 3. Install gpustat and pdm
 4. Install docker compose with install_docker_compose.sh
