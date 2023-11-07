@@ -12,7 +12,7 @@ from sklearn import decomposition
 from sklearn import manifold
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import ConfusionMatrixDisplay
-from tqdm.notebook import tqdm, trange
+from tqdm import tqdm,trange
 import matplotlib.pyplot as plt
 import numpy as np
 import numpy.fft as fft
@@ -24,6 +24,7 @@ import time
 import torch
 import torchvision
 import wandb
+from rtpt import RTPT
 
 
 
@@ -167,7 +168,7 @@ OUTPUT_DIM = 10
 
 model = LeNet(OUTPUT_DIM)
 
-optimizer = optim.Adam(model.parameters())
+optimizer = optim.Adam(model.parameters(), lr = 0.0003)
 
 criterion = nn.CrossEntropyLoss()
 
@@ -245,7 +246,8 @@ def epoch_time(start_time, end_time):
 EPOCHS = 80
 
 best_valid_loss = float('inf')
-
+rtpt = RTPT(name_initials='UY', experiment_name='Wavelets', max_iterations=EPOCHS)
+rtpt.start()
 for epoch in trange(EPOCHS, desc="Epochs"):
 
     start_time = time.monotonic()
@@ -265,3 +267,4 @@ for epoch in trange(EPOCHS, desc="Epochs"):
     print(f'\tTrain Loss: {train_loss:.3f} | Train Acc: {train_acc*100:.2f}%')
     print(f'\t Val. Loss: {valid_loss:.3f} |  Val. Acc: {valid_acc*100:.2f}%')
     wandb.log({"loss":valid_loss, "accuracy":valid_acc})
+    rtpt.step()
