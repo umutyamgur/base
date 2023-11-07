@@ -12,7 +12,7 @@ from sklearn import decomposition
 from sklearn import manifold
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import ConfusionMatrixDisplay
-from tqdm.notebook import tqdm, trange
+from tqdm import tqdm,trange
 import matplotlib.pyplot as plt
 import numpy as np
 import numpy.fft as fft
