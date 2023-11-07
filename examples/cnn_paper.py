@@ -163,7 +163,7 @@ class LeNet(nn.Module):
        
 
         return x, h
-wandb.init(project="dtcwt_CNN_CIFAR10")   
+wandb.init(project="CNN_CIFAR10")   
 OUTPUT_DIM = 10
 
 model = LeNet(OUTPUT_DIM)
