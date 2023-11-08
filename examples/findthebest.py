@@ -322,7 +322,7 @@ OUTPUT_DIM = 10
 model = Wavelets(OUTPUT_DIM, hidden_dim=wandb.config.hidden_dim)
 #model = Wavelets(OUTPUT_DIM, 8)
 
-optimizer = optim.Adam(model.parameters(), lr= 0.01)
+optimizer = optim.Adam(model.parameters(), lr= 0.0003)
 
 criterion = nn.CrossEntropyLoss()
 
@@ -397,7 +397,7 @@ def epoch_time(start_time, end_time):
     elapsed_secs = int(elapsed_time - (elapsed_mins * 60))
     return elapsed_mins, elapsed_secs
 
-EPOCHS = 20
+EPOCHS = 350
 
 best_valid_loss = float('inf')
 rtpt = RTPT(name_initials='UY', experiment_name='Wavelets', max_iterations=EPOCHS)
