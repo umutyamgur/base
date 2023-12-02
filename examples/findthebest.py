@@ -397,7 +397,7 @@ def epoch_time(start_time, end_time):
     elapsed_secs = int(elapsed_time - (elapsed_mins * 60))
     return elapsed_mins, elapsed_secs
 
-EPOCHS = 350
+EPOCHS = 100
 
 best_valid_loss = float('inf')
 rtpt = RTPT(name_initials='UY', experiment_name='Wavelets', max_iterations=EPOCHS)
