@@ -99,16 +99,22 @@ class Fourier(nn.Module):
     def __init__(self, output_dim):
         super().__init__()
 
-        self.W1 = nn.Parameter(torch.rand(28, 28, 7, 1))
-        
+        # self.W1 = nn.Parameter(torch.rand(28, 28, 7, 1))
+        # self.W2 = nn.Parameter(torch.rand(28,28, 8, 7))
+        # self.W2 = nn.Parameter(torch.rand(28,28, 8, 7))
+        # self.W3 = nn.Parameter(torch.rand(14,14, 8, 8))
+        # self.W4 = nn.Parameter(torch.rand(14,14, 8, 8))
+        # self.W5 = nn.Parameter(torch.rand(7,7, 8, 8))
+        # self.W6 = nn.Parameter(torch.rand(7,7, 8, 8))
+        # self.W7 = nn.Parameter(torch.rand(7,7, 10, 8))
 
-        #self.W2 = nn.Parameter(torch.rand(28,28, 8, 7))
-        self.W2 = nn.Parameter(torch.rand(28,28, 8, 7))
-        self.W3 = nn.Parameter(torch.rand(14,14, 8, 8))
-        self.W4 = nn.Parameter(torch.rand(14,14, 8, 8))
-        self.W5 = nn.Parameter(torch.rand(7,7, 8, 8))
-        self.W6 = nn.Parameter(torch.rand(7,7, 8, 8))
-        self.W7 = nn.Parameter(torch.rand(7,7, 10, 8))
+        self.W1 = nn.Parameter(torch.rand(32, 32, 7, 3))
+        self.W2 = nn.Parameter(torch.rand(32,32, 8, 7))
+        self.W3 = nn.Parameter(torch.rand(16,16, 8, 8))
+        self.W4 = nn.Parameter(torch.rand(16,16, 8, 8))
+        self.W5 = nn.Parameter(torch.rand(8,8, 8, 8))
+        self.W6 = nn.Parameter(torch.rand(8,8, 8, 8))
+        self.W7 = nn.Parameter(torch.rand(8,8, 10, 8))
 
         
 
@@ -333,4 +339,3 @@ for epoch in trange(EPOCHS, desc="Epochs"):
 
 #for param in Fourier.parameters():
     #print(type(param.data), param.size())
-
