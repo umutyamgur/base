@@ -99,7 +99,7 @@ class LeNet(nn.Module):
     def __init__(self, output_dim):
         super().__init__()
 
-        self.conv1 = nn.Conv2d(in_channels=1,
+        self.conv1 = nn.Conv2d(in_channels=3,
                                out_channels=6,
                                kernel_size=5)
 
@@ -107,7 +107,7 @@ class LeNet(nn.Module):
                                out_channels=16,
                                kernel_size=5)
 
-        self.fc_1 = nn.Linear(16 * 4 * 4, 120)
+        self.fc_1 = nn.Linear(16 * 5 * 5, 120)
         self.fc_2 = nn.Linear(120, 84)
         self.fc_3 = nn.Linear(84, output_dim)
 
@@ -162,8 +162,8 @@ wandb.init(project="CNN_2layers_CIFAR10")
 OUTPUT_DIM = 10
 
 model = LeNet(OUTPUT_DIM)
-for p in model.parameters():
-    nn.init.kaiming_normal_(p.data)
+#for p in model.parameters():
+    #nn.init.kaiming_normal_(p.data)
 
 optimizer = optim.Adam(model.parameters())
 
