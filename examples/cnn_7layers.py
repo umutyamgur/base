@@ -96,7 +96,7 @@ test_iterator = data.DataLoader(test_data,
                                 batch_size=BATCH_SIZE)
 
 
-class AlexNet(nn.Module):
+class LeNet(nn.Module):
     def __init__(self, output_dim):
         super().__init__()
 
@@ -166,7 +166,7 @@ class AlexNet(nn.Module):
 wandb.init(project="CNN_7layers_CIFAR10")   
 OUTPUT_DIM = 10
 
-model = AlexNet(OUTPUT_DIM)
+model = LeNet(OUTPUT_DIM)
 for p in model.parameters():
     nn.init.kaiming_normal_(p.data)
 optimizer = optim.Adam(model.parameters())
