@@ -190,7 +190,7 @@ class Fourier(nn.Module):
         #exit()
 
         return x,h
-wandb.init(project="fourier_2layers_CIFAR10", config=dict(hidden_dim=64))    
+wandb.init(project="fourier_2layers_CIFAR10")    
 OUTPUT_DIM = 10
 
 model = Fourier(OUTPUT_DIM)
@@ -302,4 +302,3 @@ for epoch in trange(EPOCHS, desc="Epochs"):
 
 #for param in Fourier.parameters():
     #print(type(param.data), param.size())
-
