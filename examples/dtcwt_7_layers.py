@@ -130,10 +130,7 @@ class Wavelets(nn.Module):
         self.Wh51 = nn.Parameter(torch.randn(hidden_dim, 10))
         self.Wh52 = nn.Parameter(torch.randn(hidden_dim, 10))
 
-        # self.Wl60 = nn.Parameter(torch.randn(hidden_dim,hidden_dim))
-        # self.Wh60 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
-        # self.Wh61 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
-        # self.Wh62 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
+       
 
         self.Wl60 = nn.Parameter(torch.randn(10,10))
         self.Wh60 = nn.Parameter(torch.randn(10, 10))
@@ -141,7 +138,7 @@ class Wavelets(nn.Module):
         self.Wh62 = nn.Parameter(torch.randn(10, 10))
 
 
-        #self.fc_1 = nn.Linear(640, 10)
+ 
 
 
 
@@ -195,7 +192,7 @@ class Wavelets(nn.Module):
         Yh[1] = self.Yh_transform(Yh[1], self.Wh01)
         Yh[2] = self.Yh_transform(Yh[2], self.Wh02)
         x = self.inverse_wavelet_transformation(Yl,Yh[0],Yh[1],Yh[2])
-
+        
 
 
 
@@ -315,14 +312,15 @@ class Wavelets(nn.Module):
 
         return x, h
 
-wandb.init(project="dtcwt_CIFAR10", config=dict(hidden_dim=32))
+wandb.init(project="dtcwt_7layers_CIFAR10", config=dict(hidden_dim=64))
 
 OUTPUT_DIM = 10
 
 model = Wavelets(OUTPUT_DIM, hidden_dim=wandb.config.hidden_dim)
 #model = Wavelets(OUTPUT_DIM, 8)
-
-optimizer = optim.Adam(model.parameters(), lr= 0.0003)
+for p in model.parameters():
+    nn.init.kaiming_normal_(p.data)
+optimizer = optim.Adam(model.parameters())
 
 criterion = nn.CrossEntropyLoss()
 
