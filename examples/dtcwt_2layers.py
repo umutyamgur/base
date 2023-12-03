@@ -207,8 +207,8 @@ OUTPUT_DIM = 10
 
 model = Wavelets(OUTPUT_DIM, hidden_dim=wandb.config.hidden_dim)
 #model = Wavelets(OUTPUT_DIM, 64)
-for p in model.parameters():
-    nn.init.kaiming_normal_(p.data)
+#for p in model.parameters():
+    #nn.init.kaiming_normal_(p.data)
 optimizer = optim.Adam(model.parameters())
 
 criterion = nn.CrossEntropyLoss()
