@@ -167,8 +167,8 @@ wandb.init(project="CNN_7layers_CIFAR10")
 OUTPUT_DIM = 10
 
 model = LeNet(OUTPUT_DIM)
-for p in model.parameters():
-    nn.init.kaiming_normal_(p.data)
+#for p in model.parameters():
+    #nn.init.kaiming_normal_(p.data)
 optimizer = optim.Adam(model.parameters())
 
 criterion = nn.CrossEntropyLoss()
