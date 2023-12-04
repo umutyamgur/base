@@ -170,7 +170,7 @@ model = LeNet(OUTPUT_DIM)
 #for p in model.parameters():
     #nn.init.kaiming_normal_(p.data)
 optimizer = optim.Adam(model.parameters())
-
+scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=0.001, steps_per_epoch=len(train_iterator), epochs=100)
 criterion = nn.CrossEntropyLoss()
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -207,6 +207,7 @@ def train(model, iterator, optimizer, criterion, device):
         loss.backward()
 
         optimizer.step()
+        scheduler.step()
 
         epoch_loss += loss.item()
         epoch_acc += acc.item()
