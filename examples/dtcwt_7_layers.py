@@ -99,47 +99,80 @@ class Wavelets(nn.Module):
     def __init__(self, output_dim,hidden_dim):
         super().__init__()
 
+        # self.Wl00 = nn.Parameter(torch.randn(3,hidden_dim))
+        # self.Wh00 = nn.Parameter(torch.randn(3, hidden_dim))
+        # self.Wh01 = nn.Parameter(torch.randn(3, hidden_dim))
+        # self.Wh02 = nn.Parameter(torch.randn(3, hidden_dim))
 
-        self.Wl00 = nn.Parameter(torch.randn(3,hidden_dim))
-        self.Wh00 = nn.Parameter(torch.randn(3, hidden_dim))
-        self.Wh01 = nn.Parameter(torch.randn(3, hidden_dim))
-        self.Wh02 = nn.Parameter(torch.randn(3, hidden_dim))
+        # self.Wl10 = nn.Parameter(torch.randn(hidden_dim,hidden_dim))
+        # self.Wh10 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
+        # self.Wh11 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
+        # self.Wh12 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
 
-        self.Wl10 = nn.Parameter(torch.randn(hidden_dim,hidden_dim))
-        self.Wh10 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
-        self.Wh11 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
-        self.Wh12 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
+        # self.Wl20 = nn.Parameter(torch.randn(hidden_dim,hidden_dim))
+        # self.Wh20 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
+        # self.Wh21 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
+        # self.Wh22 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
 
-        self.Wl20 = nn.Parameter(torch.randn(hidden_dim,hidden_dim))
-        self.Wh20 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
-        self.Wh21 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
-        self.Wh22 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
+        # self.Wl30 = nn.Parameter(torch.randn(hidden_dim,hidden_dim))
+        # self.Wh30 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
+        # self.Wh31 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
+        # self.Wh32 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
 
-        self.Wl30 = nn.Parameter(torch.randn(hidden_dim,hidden_dim))
-        self.Wh30 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
-        self.Wh31 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
-        self.Wh32 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
+        # self.Wl40 = nn.Parameter(torch.randn(hidden_dim,hidden_dim))
+        # self.Wh40 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
+        # self.Wh41 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
+        # self.Wh42 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
 
-        self.Wl40 = nn.Parameter(torch.randn(hidden_dim,hidden_dim))
-        self.Wh40 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
-        self.Wh41 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
-        self.Wh42 = nn.Parameter(torch.randn(hidden_dim, hidden_dim))
+        # self.Wl50 = nn.Parameter(torch.randn(hidden_dim,10))
+        # self.Wh50 = nn.Parameter(torch.randn(hidden_dim, 10))
+        # self.Wh51 = nn.Parameter(torch.randn(hidden_dim, 10))
+        # self.Wh52 = nn.Parameter(torch.randn(hidden_dim, 10))
+ 
+        # self.Wl60 = nn.Parameter(torch.randn(10,10))
+        # self.Wh60 = nn.Parameter(torch.randn(10, 10))
+        # self.Wh61 = nn.Parameter(torch.randn(10, 10))
+        # self.Wh62 = nn.Parameter(torch.randn(10, 10))
 
-        self.Wl50 = nn.Parameter(torch.randn(hidden_dim,10))
-        self.Wh50 = nn.Parameter(torch.randn(hidden_dim, 10))
-        self.Wh51 = nn.Parameter(torch.randn(hidden_dim, 10))
-        self.Wh52 = nn.Parameter(torch.randn(hidden_dim, 10))
+
+        self.Wl00 = nn.Parameter(torch.randn(3,96))
+        self.Wh00 = nn.Parameter(torch.randn(3, 96))
+        self.Wh01 = nn.Parameter(torch.randn(3, 96))
+        self.Wh02 = nn.Parameter(torch.randn(3, 96))
+
+        self.Wl10 = nn.Parameter(torch.randn(96,96))
+        self.Wh10 = nn.Parameter(torch.randn(96, 96))
+        self.Wh11 = nn.Parameter(torch.randn(96, 96))
+        self.Wh12 = nn.Parameter(torch.randn(96, 96))
+
+        self.Wl20 = nn.Parameter(torch.randn(96,192))
+        self.Wh20 = nn.Parameter(torch.randn(96, 192))
+        self.Wh21 = nn.Parameter(torch.randn(96, 192))
+        self.Wh22 = nn.Parameter(torch.randn(96, 192))
+
+        self.Wl30 = nn.Parameter(torch.randn(192,192))
+        self.Wh30 = nn.Parameter(torch.randn(192, 192))
+        self.Wh31 = nn.Parameter(torch.randn(192, 192))
+        self.Wh32 = nn.Parameter(torch.randn(192, 192))
+
+        self.Wl40 = nn.Parameter(torch.randn(192,192))
+        self.Wh40 = nn.Parameter(torch.randn(192, 192))
+        self.Wh41 = nn.Parameter(torch.randn(192, 192))
+        self.Wh42 = nn.Parameter(torch.randn(192, 192))
+
+        self.Wl50 = nn.Parameter(torch.randn(192,192))
+        self.Wh50 = nn.Parameter(torch.randn(192, 192))
+        self.Wh51 = nn.Parameter(torch.randn(192, 192))
+        self.Wh52 = nn.Parameter(torch.randn(192, 192))
 
        
 
-        self.Wl60 = nn.Parameter(torch.randn(10,10))
-        self.Wh60 = nn.Parameter(torch.randn(10, 10))
-        self.Wh61 = nn.Parameter(torch.randn(10, 10))
-        self.Wh62 = nn.Parameter(torch.randn(10, 10))
+        self.Wl60 = nn.Parameter(torch.randn(192,10))
+        self.Wh60 = nn.Parameter(torch.randn(192, 10))
+        self.Wh61 = nn.Parameter(torch.randn(192, 10))
+        self.Wh62 = nn.Parameter(torch.randn(192, 10))
 
-
- 
-
+        
 
 
 
@@ -312,12 +345,12 @@ class Wavelets(nn.Module):
 
         return x, h
 
-wandb.init(project="dtcwt_7layers_CIFAR10", config=dict(hidden_dim=64))
+wandb.init(project="dtcwt_7layers_CIFAR10")
 
 OUTPUT_DIM = 10
 
-model = Wavelets(OUTPUT_DIM, hidden_dim=wandb.config.hidden_dim)
-#model = Wavelets(OUTPUT_DIM, 8)
+#model = Wavelets(OUTPUT_DIM, hidden_dim=wandb.config.hidden_dim)
+model = Wavelets(OUTPUT_DIM)
 for p in model.parameters():
     nn.init.kaiming_normal_(p.data)
 optimizer = optim.Adam(model.parameters())
