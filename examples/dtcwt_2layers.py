@@ -96,22 +96,36 @@ test_iterator = data.DataLoader(test_data,
                                 batch_size=BATCH_SIZE)
 
 class Wavelets(nn.Module):
-    def __init__(self, output_dim,hidden_dim):
+    def __init__(self, output_dim):
         super().__init__()
 
+        # self.Wl00 = nn.Parameter(torch.randn(3,hidden_dim))
+        # self.Wh00 = nn.Parameter(torch.randn(3, hidden_dim))
+        # self.Wh01 = nn.Parameter(torch.randn(3, hidden_dim))
+        # self.Wh02 = nn.Parameter(torch.randn(3, hidden_dim))
 
-        self.Wl00 = nn.Parameter(torch.randn(3,hidden_dim))
-        self.Wh00 = nn.Parameter(torch.randn(3, hidden_dim))
-        self.Wh01 = nn.Parameter(torch.randn(3, hidden_dim))
-        self.Wh02 = nn.Parameter(torch.randn(3, hidden_dim))
-
-        self.Wl10 = nn.Parameter(torch.randn(hidden_dim,4))
-        self.Wh10 = nn.Parameter(torch.randn(hidden_dim, 4))
-        self.Wh11 = nn.Parameter(torch.randn(hidden_dim, 4))
-        self.Wh12 = nn.Parameter(torch.randn(hidden_dim, 4))
+        # self.Wl10 = nn.Parameter(torch.randn(hidden_dim,4))
+        # self.Wh10 = nn.Parameter(torch.randn(hidden_dim, 4))
+        # self.Wh11 = nn.Parameter(torch.randn(hidden_dim, 4))
+        # self.Wh12 = nn.Parameter(torch.randn(hidden_dim, 4))
 
 
-        self.fc_1 = nn.Linear(16 * 4 * 4, 120)
+        # self.fc_1 = nn.Linear(16 * 4 * 4, 120)
+        # self.fc_2 = nn.Linear(120, 84)
+        # self.fc_3 = nn.Linear(84, output_dim)
+
+        self.Wl00 = nn.Parameter(torch.randn(3,6))
+        self.Wh00 = nn.Parameter(torch.randn(3, 6))
+        self.Wh01 = nn.Parameter(torch.randn(3, 6))
+        self.Wh02 = nn.Parameter(torch.randn(3, 6))
+
+        self.Wl10 = nn.Parameter(torch.randn(6,16))
+        self.Wh10 = nn.Parameter(torch.randn(6, 16))
+        self.Wh11 = nn.Parameter(torch.randn(6, 16))
+        self.Wh12 = nn.Parameter(torch.randn(6, 16))
+
+
+        self.fc_1 = nn.Linear(16 * 4 * 16, 120)
         self.fc_2 = nn.Linear(120, 84)
         self.fc_3 = nn.Linear(84, output_dim)
     
@@ -201,12 +215,12 @@ class Wavelets(nn.Module):
         
         return x, h
 
-wandb.init(project="dtcwt_2layers_CIFAR10", config=dict(hidden_dim=64))
+wandb.init(project="dtcwt_2layers_CIFAR10")
 
 OUTPUT_DIM = 10
 
-model = Wavelets(OUTPUT_DIM, hidden_dim=wandb.config.hidden_dim)
-#model = Wavelets(OUTPUT_DIM, 64)
+#model = Wavelets(OUTPUT_DIM, hidden_dim=wandb.config.hidden_dim)
+model = Wavelets(OUTPUT_DIM)
 #for p in model.parameters():
     #nn.init.kaiming_normal_(p.data)
 optimizer = optim.Adam(model.parameters())
