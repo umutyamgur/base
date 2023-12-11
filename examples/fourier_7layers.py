@@ -108,20 +108,31 @@ class Fourier(nn.Module):
         # self.W6 = nn.Parameter(torch.rand(7,7, 8, 8))
         # self.W7 = nn.Parameter(torch.rand(7,7, 10, 8))
 
-        self.W1 = nn.Parameter(torch.rand(32, 32, 7, 3))
-        self.W2 = nn.Parameter(torch.rand(32,32, 8, 7))
-        self.W3 = nn.Parameter(torch.rand(16,16, 8, 8))
-        self.W4 = nn.Parameter(torch.rand(16,16, 8, 8))
-        self.W5 = nn.Parameter(torch.rand(8,8, 8, 8))
-        self.W6 = nn.Parameter(torch.rand(8,8, 8, 8))
-        self.W7 = nn.Parameter(torch.rand(8,8, 10, 8))
+        # self.W1 = nn.Parameter(torch.rand(32, 32, 7, 3))
+        # self.W2 = nn.Parameter(torch.rand(32,32, 8, 7))
+        # self.W3 = nn.Parameter(torch.rand(16,16, 8, 8))
+        # self.W4 = nn.Parameter(torch.rand(16,16, 8, 8))
+        # self.W5 = nn.Parameter(torch.rand(8,8, 8, 8))
+        # self.W6 = nn.Parameter(torch.rand(8,8, 8, 8))
+        # self.W7 = nn.Parameter(torch.rand(8,8, 10, 8))
+
+
+
+        self.W1 = nn.Parameter(torch.rand(32,32, 96, 3))
+        self.W2 = nn.Parameter(torch.rand(32,32, 96, 96))
+        self.W3 = nn.Parameter(torch.rand(16,16, 192, 96))
+        self.W4 = nn.Parameter(torch.rand(16,16, 192, 192))
+        self.W5 = nn.Parameter(torch.rand(8,8, 192, 192))
+        self.W6 = nn.Parameter(torch.rand(8,8, 192, 192))
+        self.W7 = nn.Parameter(torch.rand(8,8, 10, 192))
 
         
 
     def fourier_conv(self, x, W):
-        x = torch.fft.fft2(x) #64, 1, 28, 28 ; 64,7,28,28
+        x = torch.fft.fft2(x) #64, 3, 32, 32 ; 64,7,28,28
         
         x = torch.permute(x, (0, 2, 3, 1)).unsqueeze(-1) #64,28,28,1,1 ; 64,28,28,7,1
+        #x = torch.permute(x, (0, 2, 3, 1))  # 64, 32 ,32 , 3
         
        # 64 , 1 , 28 ,28  -> 28, 28, 7, 1 * 64, 28, 28, 1, 1  7,1 * 1,1 = 7,1. (it considers the last two items and multiply them and gets as a 7,1 vector)
         # 28, 28, 7, 1 will be same for every item in the batch 
