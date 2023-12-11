@@ -99,12 +99,21 @@ class Fourier(nn.Module):
     def __init__(self, output_dim):
         super().__init__()
 
-        self.W1 = nn.Parameter(torch.rand(32, 32, 7, 3))
+        # self.W1 = nn.Parameter(torch.rand(32, 32, 7, 3))
        
 
-        self.W2 = nn.Parameter(torch.rand(16,16, 8, 7))
+        # self.W2 = nn.Parameter(torch.rand(16,16, 8, 7))
 
-        self.fc_1 = nn.Linear(8 * 8 * 8, 120)
+        # self.fc_1 = nn.Linear(8 * 8 * 8, 120)
+        # self.fc_2 = nn.Linear(120, 84)
+        # self.fc_3 = nn.Linear(84, output_dim)
+
+        self.W1 = nn.Parameter(torch.randn(32, 32, 6, 3))
+       
+
+        self.W2 = nn.Parameter(torch.randn(16,16, 16, 6))
+
+        self.fc_1 = nn.Linear(8 * 8 * 16, 120)
         self.fc_2 = nn.Linear(120, 84)
         self.fc_3 = nn.Linear(84, output_dim)
 
