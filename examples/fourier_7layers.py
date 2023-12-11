@@ -118,13 +118,13 @@ class Fourier(nn.Module):
 
 
 
-        self.W1 = nn.Parameter(torch.rand(32,32, 96, 3))
-        self.W2 = nn.Parameter(torch.rand(32,32, 96, 96))
-        self.W3 = nn.Parameter(torch.rand(16,16, 192, 96))
-        self.W4 = nn.Parameter(torch.rand(16,16, 192, 192))
-        self.W5 = nn.Parameter(torch.rand(8,8, 192, 192))
-        self.W6 = nn.Parameter(torch.rand(8,8, 192, 192))
-        self.W7 = nn.Parameter(torch.rand(8,8, 10, 192))
+        self.W1 = nn.Parameter(torch.randn(32,32, 96, 3))
+        self.W2 = nn.Parameter(torch.randn(32,32, 96, 96))
+        self.W3 = nn.Parameter(torch.randn(16,16, 192, 96))
+        self.W4 = nn.Parameter(torch.randn(16,16, 192, 192))
+        self.W5 = nn.Parameter(torch.randn(8,8, 192, 192))
+        self.W6 = nn.Parameter(torch.randn(8,8, 192, 192))
+        self.W7 = nn.Parameter(torch.randn(8,8, 10, 192))
 
         
 
