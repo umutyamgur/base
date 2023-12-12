@@ -324,9 +324,9 @@ class Wavelets(nn.Module):
 
         # x = self.fc_1(x)
         
-        m = nn.Softmax( dim = 1)
+        #m = nn.Softmax( dim = 1)
 
-        x = m(x)
+        #x = m(x)
 
 
 
@@ -352,7 +352,8 @@ OUTPUT_DIM = 10
 #model = Wavelets(OUTPUT_DIM, hidden_dim=wandb.config.hidden_dim)
 model = Wavelets(OUTPUT_DIM)
 for p in model.parameters():
-    nn.init.kaiming_normal_(p.data)
+    if len(p.size()) >=2:
+        nn.init.kaiming_normal_(p.data)
 optimizer = optim.Adam(model.parameters())
 
 criterion = nn.CrossEntropyLoss()
@@ -368,7 +369,7 @@ def calculate_accuracy(y_pred, y):
     acc = correct.float() / y.shape[0]
     return acc
 
-def train(model, iterator, optimizer, criterion, device):
+def train(model, iterator, optimizer, criterion, device, scheduler):
 
     epoch_loss = 0
     epoch_acc = 0
@@ -391,6 +392,7 @@ def train(model, iterator, optimizer, criterion, device):
         loss.backward()
 
         optimizer.step()
+        scheduler.step()
 
         epoch_loss += loss.item()
         epoch_acc += acc.item()
@@ -430,6 +432,13 @@ def epoch_time(start_time, end_time):
 
 EPOCHS = 100
 
+scheduler = torch.optim.lr_scheduler.OneCycleLR(
+        optimizer,
+        max_lr=1e-3,
+        epochs=EPOCHS,
+        steps_per_epoch=len(train_iterator),
+        )
+
 best_valid_loss = float('inf')
 rtpt = RTPT(name_initials='UY', experiment_name='Wavelets', max_iterations=EPOCHS)
 rtpt.start()
@@ -437,7 +446,7 @@ for epoch in trange(EPOCHS, desc="Epochs"):
 
     start_time = time.monotonic()
 
-    train_loss, train_acc = train(model, train_iterator, optimizer, criterion, device)
+    train_loss, train_acc = train(model, train_iterator, optimizer, criterion, device, scheduler)
     valid_loss, valid_acc = evaluate(model, valid_iterator, criterion, device)
 
     if valid_loss < best_valid_loss:
