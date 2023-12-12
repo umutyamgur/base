@@ -12,7 +12,7 @@ from sklearn import decomposition
 from sklearn import manifold
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import ConfusionMatrixDisplay
-from tqdm import tqdm,trange
+from tqdm import tqdm, trange
 import matplotlib.pyplot as plt
 import numpy as np
 import numpy.fft as fft
@@ -154,9 +154,9 @@ class LeNet(nn.Module):
         x = self.conv7(x)
         x = F.relu(x)
         x= torch.mean(x,dim=(-2,-1))
-        m = nn.Softmax( dim = 1)
+        #m = nn.Softmax( dim = 1)
 
-        x = m(x)
+        #x = m(x)
 
         h = x
 
@@ -167,10 +167,11 @@ wandb.init(project="CNN_7layers_CIFAR10")
 OUTPUT_DIM = 10
 
 model = LeNet(OUTPUT_DIM)
-#for p in model.parameters():
-    #nn.init.kaiming_normal_(p.data)
+for p in model.parameters():
+    if len(p.size()) >=2:
+        nn.init.kaiming_normal_(p.data)
 optimizer = optim.Adam(model.parameters())
-scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=0.001, steps_per_epoch=len(train_iterator), epochs=100)
+
 criterion = nn.CrossEntropyLoss()
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -184,7 +185,7 @@ def calculate_accuracy(y_pred, y):
     acc = correct.float() / y.shape[0]
     return acc
 
-def train(model, iterator, optimizer, criterion, device):
+def train(model, iterator, optimizer, criterion, device, scheduler):
 
     epoch_loss = 0
     epoch_acc = 0
@@ -247,6 +248,13 @@ def epoch_time(start_time, end_time):
 
 EPOCHS = 100
 
+scheduler = torch.optim.lr_scheduler.OneCycleLR(
+        optimizer,
+        max_lr=1e-3,
+        epochs=EPOCHS,
+        steps_per_epoch=len(train_iterator),
+        )
+
 best_valid_loss = float('inf')
 rtpt = RTPT(name_initials='UY', experiment_name='Wavelets', max_iterations=EPOCHS)
 rtpt.start()
@@ -254,7 +262,7 @@ for epoch in trange(EPOCHS, desc="Epochs"):
 
     start_time = time.monotonic()
 
-    train_loss, train_acc = train(model, train_iterator, optimizer, criterion, device)
+    train_loss, train_acc = train(model, train_iterator, optimizer, criterion, device, scheduler)
     valid_loss, valid_acc = evaluate(model, valid_iterator, criterion, device)
 
     if valid_loss < best_valid_loss:
@@ -268,5 +276,8 @@ for epoch in trange(EPOCHS, desc="Epochs"):
     print(f'Epoch: {epoch+1:02} | Epoch Time: {epoch_mins}m {epoch_secs}s')
     print(f'\tTrain Loss: {train_loss:.3f} | Train Acc: {train_acc*100:.2f}%')
     print(f'\t Val. Loss: {valid_loss:.3f} |  Val. Acc: {valid_acc*100:.2f}%')
-    wandb.log({"loss":valid_loss, "accuracy":valid_acc})
+    wandb.log(dict(loss=valid_loss, train_loss=train_loss, accuracy=valid_acc, train_accuracy=train_acc))
     rtpt.step()
+
+test_loss, test_acc = evaluate(model, test_iterator, criterion, device)
+wandb.log({"test_loss": test_loss, "test_acc": test_acc})
