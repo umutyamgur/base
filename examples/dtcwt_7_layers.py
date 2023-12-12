@@ -96,7 +96,7 @@ test_iterator = data.DataLoader(test_data,
                                 batch_size=BATCH_SIZE)
 
 class Wavelets(nn.Module):
-    def __init__(self, output_dim,hidden_dim):
+    def __init__(self, output_dim):
         super().__init__()
 
         # self.Wl00 = nn.Parameter(torch.randn(3,hidden_dim))
