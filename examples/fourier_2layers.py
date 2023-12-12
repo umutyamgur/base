@@ -316,8 +316,12 @@ for epoch in trange(EPOCHS, desc="Epochs"):
     print(f'Epoch: {epoch+1:02} | Epoch Time: {epoch_mins}m {epoch_secs}s')
     print(f'\tTrain Loss: {train_loss:.3f} | Train Acc: {train_acc*100:.2f}%')
     print(f'\t Val. Loss: {valid_loss:.3f} |  Val. Acc: {valid_acc*100:.2f}%')
-    wandb.log({"loss":valid_loss, "accuracy":valid_acc})
+    #wandb.log({"loss":valid_loss, "accuracy":valid_acc})
+    wandb.log(dict(loss=valid_loss, train_loss=train_loss, accuracy=valid_acc, train_accuracy=train_acc))
     rtpt.step()
+
+test_loss, test_acc = evaluate(model, test_iterator, criterion, device)
+wandb.log({"test_loss": test_loss, "test_acc": test_acc})
 
 
 #for param in Fourier.parameters():
