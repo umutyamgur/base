@@ -102,7 +102,7 @@ class LeNet(nn.Module):
                                out_channels=16,
                                kernel_size=5)
 
-        self.fc_1 = nn.Linear(16 * 5 * 5, 120)
+        self.fc_1 = nn.Linear(256, 120)
         self.fc_2 = nn.Linear(120, 84)
         self.fc_3 = nn.Linear(84, output_dim)
 
